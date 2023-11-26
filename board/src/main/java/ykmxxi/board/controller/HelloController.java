@@ -1,18 +1,24 @@
 package ykmxxi.board.controller;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RestController
+@Controller
 public class HelloController {
 
-    @GetMapping("/hello")
-    public String hello() {
-        log.info("hello controller");
-        return "hello world";
+    @GetMapping("/greeting")
+    public String greeting(
+            @RequestParam(name = "name", required = false, defaultValue = "World") String name,
+            Model model
+    ) {
+        log.info("greeting call, name={}", name);
+        model.addAttribute("name", name);
+        return "greeting";
     }
 
 }
